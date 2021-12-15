@@ -27,7 +27,6 @@ function handleButtonClick(evt) {
   
     //verify that the case contains a piece
     const myPiece = checkPiece(evt);
-    console.log("mypiece",myPiece,state.pieceSelected)
     if (state.pieceSelected === false && myPiece&& evt.target.getAttribute("data-piece")[0] === game.turn) {
       selectCase(evt);
       selectPiece(evt, army);
@@ -36,11 +35,9 @@ function handleButtonClick(evt) {
       oldCase();
       movePiece(evt);
       unSelectPiece();
-      console.log("Before turn, after moving piece",game.findPiece("wTour",game.gameBoard))
       //IMPORANT = upstream link => this is what the board communicates to the game
       
       msgCoach.textContent = game.doTurn()
-      console.log("After turn, after moving piece",game.findPiece("wTour",game.gameBoard))
 
     } else if (state.pieceSelected && state.piece === myPiece) {
       selectCase(evt);
@@ -54,7 +51,6 @@ function handleButtonClick(evt) {
       const unprotected = !game.computeMenaceKing(game.whiteArmy.wRoi,game.gameBoard)[1].reduce((past,present)=>{return past || present === "wTour"},false)
       // if tower within reach
       const withinReach = game.computeMenaceKing(game.blackArmy.bRoi,game.gameBoard)[1].reduce((past,present)=>{return past || present === "wTour"},false)
-      console.log(unprotected,withinReach)
   
       if(unprotected && withinReach){
         newCase(evt);
@@ -75,7 +71,6 @@ function placePieces(army = {}, HTMLboard) {
   for (let piece in army) {
     const laCase = document.getElementById(army[piece].x + "," + army[piece].y);
     laCase.setAttribute("data-piece",piece)
-    console.log(laCase)
     laCase.classList.toggle("fas")
     laCase.classList.toggle(army[piece].class)
     laCase.classList.toggle(laCase.getAttribute("data-piece")[0])
@@ -87,9 +82,9 @@ function placePieces(army = {}, HTMLboard) {
 // IIb2 --- Creates and returns a new Army
 function restartArmy() {
   const army = hardCopy({
-    wRoi: { x: 3, y: 0, name: "wRoi" ,class:"fa-chess-king"},
-    wTour: { x: 4, y: 0, name: "wTour", class:"fa-chess-rook"},
-    bRoi: { x: 3, y: 7, name: "bRoi",class:"fa-chess-king" },
+    wRoi: { x: 3, y: 0, name: "wRoi" ,class:"fa-chess-king", type:"Roi"},
+    wTour: { x: 4, y: 0, name: "wTour", class:"fa-chess-rook",type:"Tour"},
+    bRoi: { x: 3, y: 7, name: "bRoi",class:"fa-chess-king",type:"Roi"},
   });
  return army
 }

@@ -4,6 +4,15 @@ Ironhack project 1
 **Questions for TAs**
 - data-attribute with "" vs eliminating the data attribute
 
+**Prios**
+**TO-DO in chessGame**
+- Clean unused classes : eliminated populateBoard
+- Clean unused harcopies of populateNewBoard
+- Separate big methods: doTurn, menaceKing
+- ~~Separate big methods: applyCheckDraw into applyCheckDraw and canPieceMove~~
+- ~~Added properties to calculate the cases menaced by a certain piece~~
+- ~~Reordering methods within chessGame~~
+
 **Files**
 - index.html : calls the board.js script
 - styles.css : single styles file
@@ -42,17 +51,23 @@ Ironhack project 1
     //because we are going to evolve text how the cases interact with the pieces
     
 **TO-DO in chessGame**
-- Clean unused classes
-- Clean unused harcopies of populateNewBoard
-- Separate big methods: doTurn,menaces...
 - Minuciously refactor the game
-- Major improvement : increments rather than full board calculation
+- Major improvement : Increments rather than full board calculation
 - Major improvement : battle dynamics
-- Add other pieces
+- Major improvement : Add other pieces
+- refactor structures of the armies
+- refactor structures of the statusDraw and Check??
 - Use the helper functions to refactor overall code (many loops for example)
-- Fix bug (checkmate not working if the king is not against a wall)
-    // Verify that the king considers his own place as occupied andor menaced
+- Fix bug in pieceCanMove (the stalemateBug)
+    //at the moment, the "King is protecting himself
+    //I have to create other virtual statuses
+    //And evaluate with menaceChecking,
+    //just as we do with next status
+    //possibilites for the piece to move
 - Clean all the console logs
+- Clean to-do's in the OLD file
+- Eliminate two versions casesMenacedRook and computeMenaceRook
+- Refactor menaceLines and the rest
 
 **To-Do in helpers.js**
 - take some functions from the game that are helpers and put them here
