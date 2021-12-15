@@ -1,18 +1,3 @@
-/*O. TO-DO in board.js
-- Clean unused classes
-- Clean unused harcopies of populateNewBoard
-- Separate big methods: doTurn,menaces...
-- Minuciously refactor the game
-- Major improvement : increments rather than full board calculation
-- Major improvement : battle dynamics
-- Add other pieces
-- Use the helper functions to refactor overall code (many loops for example)
-- Fix bug (checkmate not working if the king is not against a wall)
-    // Verify that the king considers his own place as occupied andor menaced
-- Clean all the console logs
-
-*/
-
 // 0 this file contains the game itself
 
 // II - Game Class

@@ -1,9 +1,3 @@
-/*O. TO-DO in board.js
-- Transfer un-used buttons to pieces in board or another file or repatriate the buttons to this file
-- Check if the Id's are actually used, if not, simplify twoDimSimpleMatrix or eliminate
-- Move place the callback to placePieces to piecesInBoard
-*/
-
 // 0 --- This file contains the board without the pieces
 
 // Ia --- Target the usefull objects in the document

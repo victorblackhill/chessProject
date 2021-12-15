@@ -1,9 +1,4 @@
-/*O. TO-DO in helpers.js
-- take some functions from the game that are helpers and put them here
-*/
-
-
-// List of functions used in different documents to make tasks easier
+// List of functions used in different files to make tasks easier
 // All functions are going to be exported 
 
 export function hardCopy(obj) {

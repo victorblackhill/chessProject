@@ -1,16 +1,4 @@
-/*O. TO-DO in pieces.board
-- Replace text.content with the a data-piece attribute
-- Decide what to do with removePieceFromBoard
-- Refactor MovePiece
-    //to-do: add something for 2 players(in the state probably)
-    //to-do: refactor adding a specific retrieveCase and retrieveCaseID and coordinates
-- Refactor SelectPiece
-    //to be refactored with second player
-    //to be refactored if pieces change during the process
-- Refactor CheckPiece
-    //Change name : the interaction corresponds to the board, not to the state or the army
-    //because we are going to evolve text how the cases interact with the pieces
-*/
+
 
 // 0. This file contains interactions of the pieces of the board
 
