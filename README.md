@@ -1,6 +1,9 @@
 # chessProject
 Ironhack project 1
 
+**Questions for TAs**
+- data-attribute with "" vs eliminating the data attribute
+
 **Files**
 - index.html : calls the board.js script
 - styles.css : single styles file
@@ -11,12 +14,14 @@ Ironhack project 1
 
 **To do :CSS improvements**
 - Allow board to adapt to the size of the screen
-- Adapt the size of the icons
+- ~~Adapt the size of the icons~~
 - Hover over the cases
-- Change the aqua blue
+- ~~Change the aqua blue~~
 - Improve display when stalemate (and other win conditions)
 - Improve coach's text
 - Add animations : with animista for example
+- Check what I can do with Canvas
+- Improve the win conditions and stalemate display
 
 **O. TO-DO in board.js**
 - Transfer un-used buttons to pieces in board or another file or repatriate the buttons to this file
@@ -24,7 +29,7 @@ Ironhack project 1
 - Move place the callback to placePieces to piecesInBoard
 
 **O. TO-DO in pieces.board**
-- Replace text.content with the a data-piece attribute
+- ~~Replace text.content with the a data-piece attribute~~
 - Decide what to do with removePieceFromBoard
 - Refactor MovePiece
     //to-do: add something for 2 players(in the state probably)

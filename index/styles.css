@@ -3,48 +3,25 @@ body {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   
 }
-.carreau {
-  height: 60px;
-  width: 60px;
-  text-align: center;
-  line-height: 50px;
-  justify-content: center;
-  font-size: xx-large;
-  margin: 0px;
-}
 
-.dark {
-  background-color: #ecdcdb;
-}
-
-.clear {
-  background-color: white;
-}
-
-.lignes {
-  display: flex;
-}
-
-.is-selected {
-  background-color: aqua;
-}
-.w {
+header {
+  padding: 5px;
+  background-color: #234145;
   color: #e5a959;
-}
-
-
-.b {
-  color: #234145;
-}
-
-#the-board {
-  display: flex;
-  flex-direction: column;
-  max-width: fit-content;
-  margin: 10px;
   max-width: 500px;
   min-width: 235px;
 }
+
+footer {
+  display :flex;
+  color:#234145;
+  background-color: #ecdcdb;
+  padding: 5px;
+  max-width: 500px;
+  min-width: 235px;
+}
+
+/* The button ----------------------------------------------------*/
 
 #btn-reset {
   font-size: large;
@@ -64,19 +41,52 @@ body {
   background-color: #ecdcdb;
 }
 
-header {
-  padding: 5px;
-  background-color: #234145;
-  color: #e5a959;
+/* The Board ----------------------------------------------------*/
+
+#the-board {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+  margin: 10px;
   max-width: 500px;
   min-width: 235px;
 }
 
-footer {
-  display :flex;
-  color:#234145;
+.lignes {
+  display: flex;
+}
+
+.carreau {
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  line-height: 50px;
+  justify-content: center;
+  font-size: xx-large;
+  margin: 0px;
+}
+
+.dark {
   background-color: #ecdcdb;
-  padding: 5px;
-  max-width: 500px;
-  min-width: 235px;
+}
+
+.clear {
+  background-color: white;
+}
+
+/* Pieces and selected cases ----------------------------------------------------*/
+
+.w.is-selected {
+  background-color: #234145;
+}
+.w {
+  color: #e5a959;
+}
+
+
+.b {
+  color: #234145;
+}
+.b.is-selected {
+  background-color: #e5a959;
 }
