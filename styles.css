@@ -1,6 +1,5 @@
 /* Display improvements
 - Allow board to adapt to the size of the screen
-- Refactor the use of the text content in order not to display it
 - Adapt the size of the icons
 - Hover over the cases
 - Change the aqua blue
@@ -14,12 +13,15 @@
 body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  
 }
 .carreau {
   height: 60px;
   width: 60px;
   text-align: center;
-
+  line-height: 50px;
+  justify-content: center;
+  font-size: xx-large;
   margin: 0px;
 }
 
@@ -42,6 +44,7 @@ body {
   color: #e5a959;
 }
 
+
 .b {
   color: #234145;
 }
@@ -51,6 +54,8 @@ body {
   flex-direction: column;
   max-width: fit-content;
   margin: 10px;
+  max-width: 500px;
+  min-width: 235px;
 }
 
 #btn-reset {
@@ -58,6 +63,7 @@ body {
   background-color: #234145;
   color: #ecdcdb;
   padding: 15px;
+  margin : 5px
 }
 
 #btn-reset:hover {
@@ -72,11 +78,17 @@ body {
 
 header {
   padding: 5px;
-  height: 120px;
   background-color: #234145;
   color: #e5a959;
-  width: 500px;
+  max-width: 500px;
+  min-width: 235px;
 }
 
-.my-div {
+footer {
+  display :flex;
+  color:#234145;
+  background-color: #ecdcdb;
+  padding: 5px;
+  max-width: 500px;
+  min-width: 235px;
 }

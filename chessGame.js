@@ -8,7 +8,7 @@
 - Add other pieces
 - Use the helper functions to refactor overall code (many loops for example)
 - Fix bug (checkmate not working if the king is not against a wall)
-  // Verify that the king considers his own place as occupied andor menaced
+    // Verify that the king considers his own place as occupied andor menaced
 - Clean all the console logs
 
 */

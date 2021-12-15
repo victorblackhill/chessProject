@@ -1,10 +1,7 @@
 /*O. TO-DO in board.js
-- Transfer un-used buttons to pieces in board or another file
-- Transfer state to piecesInBoard
+- Transfer un-used buttons to pieces in board or another file or repatriate the buttons to this file
 - Check if the Id's are actually used, if not, simplify twoDimSimpleMatrix or eliminate
 - Move place the callback to placePieces to piecesInBoard
-- WARNING: renderboard has changed as does not use anymore the 
-- Create a callback to HandleButtonClick to the new file (piecesInBoard probably...)
 */
 
 // 0 --- This file contains the board without the pieces

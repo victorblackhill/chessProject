@@ -1,7 +1,6 @@
 /*O. TO-DO in pieces.board
-- Fix RestartBoard
+- Replace text.content with the a data-piece attribute
 - Decide what to do with removePieceFromBoard
-- The function restartBoard does not include an army
 - Refactor MovePiece
     //to-do: add something for 2 players(in the state probably)
     //to-do: refactor adding a specific retrieveCase and retrieveCaseID and coordinates
@@ -41,7 +40,7 @@ function handleButtonClick(evt) {
     //verify that the case contains a piece
     const myPiece = checkPiece(evt);
     console.log("mypiece",myPiece,state.pieceSelected)
-    if (state.pieceSelected === false && myPiece&& evt.target.textContent[0] === game.turn) {
+    if (state.pieceSelected === false && myPiece&& evt.target.getAttribute("data-piece")[0] === game.turn) {
       selectCase(evt);
       selectPiece(evt, army);
     } else if (state.pieceSelected && !myPiece) {
@@ -87,10 +86,11 @@ function placePieces(army = {}, HTMLboard) {
   //refactor when army changes its looks
   for (let piece in army) {
     const laCase = document.getElementById(army[piece].x + "," + army[piece].y);
-    laCase.textContent = piece;
+    laCase.setAttribute("data-piece",piece)
+    console.log(laCase)
     laCase.classList.toggle("fas")
     laCase.classList.toggle(army[piece].class)
-    laCase.classList.toggle(laCase.textContent[0])
+    laCase.classList.toggle(laCase.getAttribute("data-piece")[0])
   }
 
   return HTMLboard;
@@ -118,9 +118,9 @@ function selectPiece(evt, army) {
   //to be refactored with second player
   //to be refactored if pieces change during the process
   //downstream interaction
-  state.piece = army[evt.target.textContent].name;
-  state.x = army[evt.target.textContent].x;
-  state.y = army[evt.target.textContent].y;
+  state.piece = army[evt.target.getAttribute("data-piece")].name;
+  state.x = army[evt.target.getAttribute("data-piece")].x;
+  state.y = army[evt.target.getAttribute("data-piece")].y;
   state.pieceSelected = !state.pieceSelected;
 }
 
@@ -134,7 +134,7 @@ function unSelectPiece() {
 // IId - Modifies the board-----------------------------
 function newCase(evt) {
   const targetCase = evt.target;
-  targetCase.textContent = state.piece;
+  targetCase.setAttribute("data-piece",state.piece)
   
   //copy the classe
   const myClasses = ["fas", army[state.piece].class,state.piece[0]]
@@ -145,7 +145,7 @@ function newCase(evt) {
 function oldCase() {
   //To be refactored with a better way to retrieve the initial case, maybe a method in the object state?
   const initialCase = document.getElementById(state.x + "," + state.y);
-  initialCase.textContent = "";
+  initialCase.setAttribute("data-piece","") ;
   initialCase.classList.toggle("is-selected");
   
   const myClasses = ["fas", army[state.piece].class,state.piece[0]]
@@ -154,8 +154,8 @@ function oldCase() {
 }
 
 function checkPiece(evt) {
-  if (evt.target.textContent) {
-    return evt.target.textContent;
+  if (evt.target.getAttribute("data-piece")) {
+    return evt.target.getAttribute("data-piece");
   }
   return false;
 }
