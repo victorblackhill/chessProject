@@ -1,0 +1,82 @@
+/* Display improvements
+- Allow board to adapt to the size of the screen
+- Refactor the use of the text content in order not to display it
+- Adapt the size of the icons
+- Hover over the cases
+- Change the aqua blue
+- Improve display when stalemate (and other win conditions)
+- Improve coach's text
+- Add animations : with animista for example
+*/
+
+
+
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.carreau {
+  height: 60px;
+  width: 60px;
+  text-align: center;
+
+  margin: 0px;
+}
+
+.dark {
+  background-color: #ecdcdb;
+}
+
+.clear {
+  background-color: white;
+}
+
+.lignes {
+  display: flex;
+}
+
+.is-selected {
+  background-color: aqua;
+}
+.w {
+  color: #e5a959;
+}
+
+.b {
+  color: #234145;
+}
+
+#the-board {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+  margin: 10px;
+}
+
+#btn-reset {
+  font-size: large;
+  background-color: #234145;
+  color: #ecdcdb;
+  padding: 15px;
+}
+
+#btn-reset:hover {
+  background-color: #234145;
+  color: #e5a959;
+}
+
+#btn-reset:active {
+  color: #234145;
+  background-color: #ecdcdb;
+}
+
+header {
+  padding: 5px;
+  height: 120px;
+  background-color: #234145;
+  color: #e5a959;
+  width: 500px;
+}
+
+.my-div {
+}
