@@ -9,6 +9,15 @@ Ironhack project 1
 - chessGame.js : the Chessy class (THE game)
 - helpers.js : functions used in different files to make tasks easier
 
+**To do :CSS improvements**
+- Allow board to adapt to the size of the screen
+- Adapt the size of the icons
+- Hover over the cases
+- Change the aqua blue
+- Improve display when stalemate (and other win conditions)
+- Improve coach's text
+- Add animations : with animista for example
+
 **O. TO-DO in board.js**
 - Transfer un-used buttons to pieces in board or another file or repatriate the buttons to this file
 - Check if the Id's are actually used, if not, simplify twoDimSimpleMatrix or eliminate

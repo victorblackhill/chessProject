@@ -1,15 +1,3 @@
-/* Display improvements
-- Allow board to adapt to the size of the screen
-- Adapt the size of the icons
-- Hover over the cases
-- Change the aqua blue
-- Improve display when stalemate (and other win conditions)
-- Improve coach's text
-- Add animations : with animista for example
-*/
-
-
-
 body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
