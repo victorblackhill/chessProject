@@ -71,7 +71,7 @@ class Chessy {
       } else {
         this.changePlayer();
         return isOpponentCheck
-          ? "Check ! Now " + this.turn + " can defend"
+          ? "Check! Now " + this.turn + " can defend"
           : "Now " + this.turn + " can play";
       }
       //End turn, id est : Change player

@@ -24,10 +24,14 @@ const state = {
 function handleButtonClick(evt) {
     //this function should only handle states
     //the rest is in the callbacks
-  
-    //verify that the case contains a piece
+
+    //Condition to avoid moving after the end of the game
+    //downstream interaction
     const myPiece = checkPiece(evt);
-    if (state.pieceSelected === false && myPiece&& evt.target.getAttribute("data-piece")[0] === game.turn) {
+    if(msgCoach.textContent === "Stalemate!" || msgCoach.textContent === "w Won!"){}
+    //verify that the case contains a piece
+    
+    else if (state.pieceSelected === false && myPiece&& evt.target.getAttribute("data-piece")[0] === game.turn) {
       selectCase(evt);
       selectPiece(evt, army);
     } else if (state.pieceSelected && !myPiece) {
@@ -46,18 +50,23 @@ function handleButtonClick(evt) {
       //upstream interaction, to be refactored within a single doTurn() function to be able to add other pieces
       //Refactor the menace : is menaced by, will allow constructing a menace 2D matrix object for each state :D
   
-      // if tower unprotected unprotected
+      // if tower unprotected con
       
       const unprotected = !game.computeMenaceKing(game.whiteArmy.wRoi,game.gameBoard)[1].reduce((past,present)=>{return past || present === "wTour"},false)
       // if tower within reach
       const withinReach = game.computeMenaceKing(game.blackArmy.bRoi,game.gameBoard)[1].reduce((past,present)=>{return past || present === "wTour"},false)
   
       if(unprotected && withinReach){
+        console.log("here")
         newCase(evt);
         oldCase();
         movePiece(evt);
         unSelectPiece();
-        msgCoach.textContent = "Stalemate"
+        evt.target.classList.toggle("fa-chess-rook")
+        evt.target.classList.toggle("fas")
+        evt.target.classList.toggle("w")
+        msgCoach.textContent = "Stalemate!"
+
       }
       
     }
