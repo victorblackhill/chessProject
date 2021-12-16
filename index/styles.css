@@ -1,24 +1,37 @@
 body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  
+    display:flex;
+    flex-direction: column;
+    margin:0px 5px 0px 5px;
+    min-width: 200px;
+
 }
 
 header {
-  padding: 5px;
   background-color: #234145;
   color: #e5a959;
-  max-width: 500px;
-  min-width: 235px;
+  max-width: 100%;
+  margin:0px 0px 10px 0px;
+  padding: 5px 10px;
 }
 
 footer {
   display :flex;
   color:#234145;
   background-color: #ecdcdb;
-  padding: 5px;
-  max-width: 500px;
-  min-width: 235px;
+  
+  max-width: 100%;
+
+  margin:10px 0 0px 0px;
+  padding: 10px 10px;
+
+  justify-content: space-between;
+  
+}
+
+h1{
+  padding-left: 20px;
 }
 
 /* The button ----------------------------------------------------*/
@@ -28,7 +41,7 @@ footer {
   background-color: #234145;
   color: #ecdcdb;
   padding: 15px;
-  margin : 5px
+  margin-right:10px;
 }
 
 #btn-reset:hover {
@@ -43,27 +56,32 @@ footer {
 
 /* The Board ----------------------------------------------------*/
 
+.my-div{
+  background-color: #234145;
+  display:flex;
+  justify-content: center;
+  
+}
+
 #the-board {
-  display: flex;
-  flex-direction: column;
-  max-width: fit-content;
-  margin: 10px;
-  max-width: 500px;
-  min-width: 235px;
+  width:100%;
+  align-items: center;
+
+  background: gold;
 }
 
 .lignes {
-  display: flex;
+  display:flex;
+  width:100%;
 }
 
-.carreau {
-  height: 60px;
-  width: 60px;
+.carreau{
+  width:100%;
+  height: 0px;
+  padding-bottom: 12.5%;
   text-align: center;
-  line-height: 50px;
-  justify-content: center;
-  font-size: xx-large;
-  margin: 0px;
+  line-height: 12vw;
+  font-size: 8vw;
 }
 
 .dark {
@@ -90,3 +108,26 @@ footer {
 .b.is-selected {
   background-color: #e5a959;
 }
+
+
+@media (min-width: 500px) {
+  .carreau {
+  width:61.25px;
+  height: 0px;
+  padding-bottom: 61.25px;
+  text-align: center;
+  line-height: 60px;
+  font-size: 40px;
+   
+  }
+  
+  .lignes,#the-board{
+    width:fit-content;
+  }
+
+
+  @media(max-width: 500px){
+
+  }
+}
+
