@@ -70,3 +70,4 @@ Ironhack project 1
 - ~~Reordering methods within chessGame~~
 - ~~Fixed bug in pieceCanMove (the stalemateBug) by evaluating possible moves of each King in a temporary virtual board where the King was extracted with extractPiece: that way the position just behind him is going to be considered menaced nevertheless, adding extractPiece method was necessary~~
 - ~~Allow board to adapt to the size of the screen by adding a condition @media and the trick to create responsive squares with padding~~
+
