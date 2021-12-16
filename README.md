@@ -9,9 +9,6 @@ Ironhack project 1
 - Clean unused classes : eliminated populateBoard
 - Clean unused harcopies of populateNewBoard
 - Separate big methods: doTurn, menaceKing
-- ~~Separate big methods: applyCheckDraw into applyCheckDraw and canPieceMove~~
-- ~~Added properties to calculate the cases menaced by a certain piece~~
-- ~~Reordering methods within chessGame~~
 
 **Files**
 - index.html : calls the board.js script
@@ -58,16 +55,18 @@ Ironhack project 1
 - refactor structures of the armies
 - refactor structures of the statusDraw and Check??
 - Use the helper functions to refactor overall code (many loops for example)
-- Fix bug in pieceCanMove (the stalemateBug)
-    //at the moment, the "King is protecting himself
-    //I have to create other virtual statuses
-    //And evaluate with menaceChecking,
-    //just as we do with next status
-    //possibilites for the piece to move
 - Clean all the console logs
 - Clean to-do's in the OLD file
 - Eliminate two versions casesMenacedRook and computeMenaceRook
 - Refactor menaceLines and the rest
+- Use different words when a piece is called as a piece object or as a string
 
 **To-Do in helpers.js**
 - take some functions from the game that are helpers and put them here
+
+
+**DONE LOG**
+- ~~Separate big methods: applyCheckDraw into applyCheckDraw and canPieceMove~~
+- ~~Added properties to calculate the cases menaced by a certain piece~~
+- ~~Reordering methods within chessGame~~
+- ~~Fix bug in pieceCanMove (the stalemateBug) by evaluating possible moves of each King in a temporary virtual board where the King was extracted with extractPiece: that way the position just behind him is going to be considered menaced nevertheless, adding extractPiece method was necessary~~

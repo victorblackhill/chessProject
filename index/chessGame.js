@@ -14,17 +14,18 @@ class Chessy {
     //At all moments, the army are the "physical pieces"
     this.whiteArmy = { wRoi: army["wRoi"], wTour: army["wTour"] };
     this.blackArmy = { bRoi: army["bRoi"] };
-    this.menaces = {Roi:this.computeMenaceKing,Tour:this.computeMenaceRook};
+    this.menaces = {
+      Roi: this.computeMenaceKing,
+      Tour: this.computeMenaceRook,
+    };
     this.turn = "w";
 
     //this is the actual gameBoard, validated
     this.gameBoard = virtualBoard(x, y);
     this.check = { w: false, b: false };
     this.draw = { w: false, b: false };
-
   }
 
-  
   //A ------ MAIN METHODS ---------------------------------------------------------------------
   doTurn() {
     const player = game.turn;
@@ -45,7 +46,7 @@ class Chessy {
       this.validateMove(this.whiteArmy.wRoi, this.gameBoard) &&
       this.validateMove(this.whiteArmy.wTour, this.gameBoard) &&
       this.validateMove(this.blackArmy.bRoi, this.gameBoard);
-      
+
     if (isAccepted && !isPlayerCheck) {
       // Next is validated if the player is not in check
       // In that case Next "se déverse" into the actual board if Next is validated
@@ -79,7 +80,6 @@ class Chessy {
       this.undoMove();
       //RENDER
       renderBoard(x, y);
-      console.log(">> Army", army);
       placePieces(army, theBoard);
       //restart turn
       return this.turn + " Please replay";
@@ -87,22 +87,42 @@ class Chessy {
   }
 
   applyCheckDraw(board, statusCheck, statusDraw) {
-    
     //Check if Whites in Check
-    statusCheck.w = this.menaceChecking("wRoi",this.blackArmy,board)
+    statusCheck.w = this.menaceChecking("wRoi", this.blackArmy, board);
 
     //Check if Blacks in Check
-    statusCheck.b = this.menaceChecking("bRoi",this.whiteArmy,board)
+    statusCheck.b = this.menaceChecking("bRoi", this.whiteArmy, board);
 
     //Check if White King anb B King can move
-    statusDraw.b = !this.canPieceMove("wRoi",this.whiteArmy,this.blackArmy,board)[0]
-    statusDraw.w = !this.canPieceMove("bRoi",this.blackArmy,this.whiteArmy,board)[0]
 
-    
+    //Each king has to extracted for his eval in order to avoid a bug
+    const boardWithoutWKing = this.extractPiece("wRoi", board);
+    const boardWithoutBKing = this.extractPiece("bRoi", board);
+
+    statusDraw.b = !this.canPieceMove(
+      "bRoi",
+      this.blackArmy,
+      this.whiteArmy,
+      boardWithoutBKing
+    )[0];
+    statusDraw.w = !this.canPieceMove(
+      "wRoi",
+      this.whiteArmy,
+      this.blackArmy,
+      boardWithoutWKing
+    )[0];
+
     return {
       w: { check: statusCheck.w, draw: statusDraw.w },
       b: { check: statusCheck.b, draw: statusDraw.b },
     };
+  }
+
+  extractPiece(pieceName, board) {
+    const newBoard = this.populateNewBoard();
+    const coords = this.findPiece(pieceName, newBoard);
+    newBoard[coords.x][coords.y].occupiedBy = false;
+    return newBoard;
   }
 
   //Change status of the turn
@@ -196,19 +216,17 @@ class Chessy {
   }
 
   computeMenaceRook(aPiece, board) {
-    
     const res = [];
     res[0] = [];
     res[1] = [];
-    
-    const menancedLinePlus =linePlus(aPiece, board);
+
+    const menancedLinePlus = linePlus(aPiece, board);
     res[0] = res[0].concat(menancedLinePlus[0]);
     res[1].push(menancedLinePlus[1]);
 
     const menancedLineMinus = lineMinus(aPiece, board);
     res[0] = res[0].concat(menancedLineMinus[0]);
     res[1].push(menancedLineMinus[1]);
-
 
     const menacedColMinus = colMinus(aPiece, board);
     res[0] = res[0].concat(menacedColMinus[0]);
@@ -222,7 +240,7 @@ class Chessy {
   }
 
   casesMenacedRook(aPiece, board) {
-    const res = this.computeMenaceRook(aPiece, board)[0]
+    const res = this.computeMenaceRook(aPiece, board)[0];
     /*
     const twoDimTable = this.computeMenaceRook(aPiece, board);
     for (let myLine of twoDimTable[0]) {
@@ -234,54 +252,69 @@ class Chessy {
     */
     return res;
   }
-  
+
   // F ------ Methods applied to compute the menaces ------------------------------------------------
-  canPieceMove(pieceName,playerArmy,opponentArmy,board){
-    
+  canPieceMove(pieceName, playerArmy, opponentArmy, board) {
     //take the cases where each piece can moove
-    let possibles = this.menaces[playerArmy[pieceName].type](playerArmy[pieceName],board)[0]
-    
+    let possibles = this.menaces[playerArmy[pieceName].type](
+      playerArmy[pieceName],
+      board
+    )[0];
+
     //filter pieces occupied by own pieces, that I CANNOT kill
-    let ownPieces = []
-    for (let ownPiece in playerArmy) {ownPieces.push([playerArmy[ownPiece].x,playerArmy[ownPiece].y])}
-    
-    for(let myCase of ownPieces){
-      possibles = possibles.filter((casePossible)=>!compareCases(casePossible, myCase))
+    let ownPieces = [];
+    for (let ownPiece in playerArmy) {
+      ownPieces.push([playerArmy[ownPiece].x, playerArmy[ownPiece].y]);
+    }
+
+    for (let myCase of ownPieces) {
+      possibles = possibles.filter(
+        (casePossible) => !compareCases(casePossible, myCase)
+      );
     }
 
     //filter the cases menaced by each piece of the opponent's army
-    for (let opPieceName in opponentArmy){
-      const menacedCases = this.menaces[opponentArmy[opPieceName].type](opponentArmy[opPieceName],board)[0]
-      for(let myCase of menacedCases){
-        possibles = possibles.filter((casePossible)=>!compareCases(casePossible, myCase))
+    for (let opPieceName in opponentArmy) {
+      const menacedCases = this.menaces[opponentArmy[opPieceName].type](
+        opponentArmy[opPieceName],
+        board
+      )[0];
+      for (let myCase of menacedCases) {
+        possibles = possibles.filter(
+          (casePossible) => !compareCases(casePossible, myCase)
+        );
       }
-    
     }
 
-    return possibles
+    return possibles;
   }
   //Returns yes if the piece is menaced by any piece of the other army
-  menaceChecking (pieceName = String,playerArmy,board){
-    let newStatusCheck = false
+  menaceChecking(pieceName = String, playerArmy, board) {
+    let newStatusCheck = false;
     // a piece is menaced by the other army if
-    for(let piece in playerArmy){
-      
-      newStatusCheck = this.menaces[playerArmy[piece].type](playerArmy[piece],board)[1].includes(pieceName) || newStatusCheck
+    for (let piece in playerArmy) {
+      newStatusCheck =
+        this.menaces[playerArmy[piece].type](
+          playerArmy[piece],
+          board
+        )[1].includes(pieceName) || newStatusCheck;
     }
-    return newStatusCheck
-
+    return newStatusCheck;
   }
   //Returns menaced pieces by the whole army
-  menacePieces(playerArmy,board){
-  
-    let list = []
+  menacePieces(playerArmy, board) {
+    let list = [];
     // a piece is menaced by the other army if
-    for(let piece in playerArmy){
-      list.concat(this.menaces[playerArmy[piece].type](playerArmy[piece],board)[1].includes(pieceName)) 
+    for (let piece in playerArmy) {
+      list.concat(
+        this.menaces[playerArmy[piece].type](
+          playerArmy[piece],
+          board
+        )[1].includes(pieceName)
+      );
     }
 
-    return list
-
+    return list;
   }
 
   //Helper functions
@@ -304,7 +337,6 @@ class Chessy {
     }
     return res;
   }
-
 }
 
 // IVa - Imports
@@ -318,77 +350,76 @@ import { x, y, game, renderBoard, placePieces, theBoard } from "./board.js";
 // IVc - Exports
 export { Chessy };
 
-
 // Former methods, I had to put them as helper functions called by computeMenaceRook
 
-  function linePlus(aPiece, board) {
-    const menacedSpaces = [];
-    let piece = "";
+function linePlus(aPiece, board) {
+  const menacedSpaces = [];
+  let piece = "";
 
-    const x = aPiece.x;
-    const y = aPiece.y;
+  const x = aPiece.x;
+  const y = aPiece.y;
 
-    for (let line = x + 1; line <= 7; line++) {
-      menacedSpaces.push([line, y]);
-      if (board[line][y].occupiedBy) {
-        piece = board[line][y].occupiedBy;
-        break;
-      }
+  for (let line = x + 1; line <= 7; line++) {
+    menacedSpaces.push([line, y]);
+    if (board[line][y].occupiedBy) {
+      piece = board[line][y].occupiedBy;
+      break;
     }
-
-    return [menacedSpaces, piece];
   }
 
-  function lineMinus(aPiece, board) {
-    const menacedSpaces = [];
-    let piece = "";
+  return [menacedSpaces, piece];
+}
 
-    const x = aPiece.x;
-    const y = aPiece.y;
+function lineMinus(aPiece, board) {
+  const menacedSpaces = [];
+  let piece = "";
 
-    for (let line = x - 1; line >= 0; line--) {
-      menacedSpaces.push([line, y]);
-      if (board[line][y].occupiedBy) {
-        piece = board[line][y].occupiedBy;
-        break;
-      }
+  const x = aPiece.x;
+  const y = aPiece.y;
+
+  for (let line = x - 1; line >= 0; line--) {
+    menacedSpaces.push([line, y]);
+    if (board[line][y].occupiedBy) {
+      piece = board[line][y].occupiedBy;
+      break;
     }
-
-    return [menacedSpaces, piece];
   }
 
-  function colPlus(aPiece, board) {
-    const menacedSpaces = [];
-    let piece = "";
+  return [menacedSpaces, piece];
+}
 
-    const x = aPiece.x;
-    const y = aPiece.y;
+function colPlus(aPiece, board) {
+  const menacedSpaces = [];
+  let piece = "";
 
-    for (let column = y + 1; column <= 7; column++) {
-      menacedSpaces.push([x, column]);
-      if (board[x][column].occupiedBy) {
-        piece = board[x][column].occupiedBy;
-        break;
-      }
+  const x = aPiece.x;
+  const y = aPiece.y;
+
+  for (let column = y + 1; column <= 7; column++) {
+    menacedSpaces.push([x, column]);
+    if (board[x][column].occupiedBy) {
+      piece = board[x][column].occupiedBy;
+      break;
     }
-
-    return [menacedSpaces, piece];
   }
 
-  function colMinus(aPiece, board) {
-    const menacedSpaces = [];
-    let piece = "";
+  return [menacedSpaces, piece];
+}
 
-    const x = aPiece.x;
-    const y = aPiece.y;
+function colMinus(aPiece, board) {
+  const menacedSpaces = [];
+  let piece = "";
 
-    for (let column = y - 1; column >= 0; column--) {
-      menacedSpaces.push([x, column]);
-      if (board[x][column].occupiedBy) {
-        piece = board[x][column].occupiedBy;
-        break;
-      }
+  const x = aPiece.x;
+  const y = aPiece.y;
+
+  for (let column = y - 1; column >= 0; column--) {
+    menacedSpaces.push([x, column]);
+    if (board[x][column].occupiedBy) {
+      piece = board[x][column].occupiedBy;
+      break;
     }
-
-    return [menacedSpaces, piece];
   }
+
+  return [menacedSpaces, piece];
+}
