@@ -6,6 +6,8 @@ body {
     margin:0px 5px 0px 5px;
     min-width: 200px;
 
+    background: rgba(35,65,69,0.57) url("") no-repeat scroll 0 0;
+
 }
 
 header {
